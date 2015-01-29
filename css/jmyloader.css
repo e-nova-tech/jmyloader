@@ -1,0 +1,75 @@
+.jmyloader-container {
+    position: relative;
+}
+
+.jmyloader-wrapper {
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 66000;
+}
+
+.jmyloader{
+    position: absolute;
+    /*background: #ed4e6e;*/
+    background: #ff950b;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    pointer-events: none;
+    text-align: center;
+    -moz-transform:    translateX(50%) translateY(-50%) rotate(45deg);
+    -o-transform:      translateX(50%) translateY(-50%) rotate(45deg);
+    -webkit-transform: translateX(50%) translateY(-50%) rotate(45deg);
+    transform:         translateX(50%) translateY(-50%) rotate(45deg);
+    font-size: 14px;
+}
+
+.jmyloader > div.spinner{
+    margin-top: 60%;
+    text-align: center;
+}
+.jmyloader > div.spinner img {
+    width: 25%;
+}
+.jmyloader > p{
+    position: absolute;
+    width: 100%;
+    bottom: 2%;
+    text-align: center;
+    font-size: 85%;
+    padding: 0;
+    margin: 0;
+    font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+}
+
+.jmyloader path.foreground {
+    fill: #000000;
+}
+
+.jmyloader path.background {
+    fill: #ffaa3b;
+}
+
+.jmyloader .spinner text{
+    font-family: "RamaGothicM-Heavy",Impact,Haettenschweiler,"Franklin Gothic Bold",Charcoal,"Helvetica Inserat","Bitstream Vera Sans Bold","Arial Black",sans-serif;
+    font-size: 20px;
+}
+
+/** Extra themes **/
+.blue .jmyloader {
+    background: #012647;
+    color: white;
+}
+.blue .jmyloader path.foreground {
+    fill: #000000;
+    color: #1072b8;
+}
+
+.blue .jmyloader path.background {
+    fill: #35526b;
+}
+.blue .jmyloader .spinner text{
+    fill: #ffffff;
+    /*font-size: 15px !important;*/
+}

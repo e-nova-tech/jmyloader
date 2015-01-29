@@ -1,0 +1,47 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/d3.v3.min.js"></script>
+    <script src="js/jmyloader.js"></script>
+    <script>
+        $(function(){
+            function increment(elt, interval) {
+                elt.jMyLoader('item-loaded');
+                setTimeout(function() {
+                    increment(elt, interval);
+                },
+                interval);
+            }
+
+            $('body').jMyLoader();
+            $('body').jMyLoader('item-add', 20);
+            increment($('body'), 500);
+
+            $('.demo1').jMyLoader({size : 200, spinner: 'image'});
+            $('.demo1').jMyLoader('item-add', 10);
+            increment($('.demo1'), 500);
+
+            $('.demo2').jMyLoader({size : 200, theme: 'blue'});
+            $('.demo2').jMyLoader('item-add', 10);
+            increment($('.demo2'), 500);
+        });
+    </script>
+    <link type="text/css" rel="stylesheet" href="css/jmyloader.css" media="all" />
+    <link type="text/css" rel="stylesheet" href="css/demo.css" media="all" />
+</head>
+<body>
+    <div class="donut">
+
+    </div>
+    <div class="demo-container demo1">
+        <h1>DEMO 1</h1>
+        <p>Loading inside the container</p>
+    </div>
+
+    <div class="demo-container demo2">
+        <h1>DEMO 2</h1>
+        <p>Loading inside the container</p>
+    </div>
+</body>
+</html>
