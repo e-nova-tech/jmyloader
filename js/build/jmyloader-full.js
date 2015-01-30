@@ -9611,10 +9611,10 @@ donut.prototype.arcTween = function(transition, el, arc, newAngle) {
  * @returns jMyLoader object, an instance of jMyLoader
  */
 jQuery.fn.jMyLoader = function(o, v) {
-
+  // Main jMyLoader object that will be returned.
+  var JML = null;
   // Init application.
-  return this.each(function() {
-
+  this.each(function() {
     // Will contain instances of jMyLoader, per element.
     $.jMyLoaderInstances = $.jMyLoaderInstances || Array();
 
@@ -9891,7 +9891,7 @@ jQuery.fn.jMyLoader = function(o, v) {
        * increment the number of loaded items.
        * @param int n, whether we want to increment by more than 1.
        */
-      incrementLoaded : function(n) {
+      incrementLoadedItem : function(n) {
         var increment = n ? n : 1;
         // Increment items.
         this.currentItem += increment;
@@ -9980,16 +9980,16 @@ jQuery.fn.jMyLoader = function(o, v) {
           case 'hide' :
             jml.hide();
             break;
-          case 'percent' :
+          case 'set-percent' :
             jml.setPercent();
             break;
-          case 'item-set-total' :
+          case 'set-total-items' :
             jml.setTotalItems(cmdOptions);
             break;
-          case 'item-loaded' :
-            jml.incrementLoaded(cmdOptions);
+          case 'increment-loaded-item' :
+            jml.incrementLoadedItem(cmdOptions);
             break;
-          case 'item-add' :
+          case 'add-items' :
             jml.addItems(cmdOptions);
             break;
           case 'loader-exists' :
@@ -10000,8 +10000,9 @@ jQuery.fn.jMyLoader = function(o, v) {
       return;
     }
     // Init app.
-    var app = init($(this), o);
+    JML = init($(this), o);
     // Return app instance.
-    return app;
+    return JML;
   });
+  return JML;
 }

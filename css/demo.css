@@ -1,6 +1,15 @@
-.demo-container {
+body {
+    font-family: Arial;
+}
+
+.demo-wrapper {
     margin: auto;
+    width: 800px;
+}
+
+.demo-container {
     border: 1px solid #ccc;
-    width: 600px;
-    height: 300px;
+    height: 200px;
+    float: left;
+    width: 398px;
 }

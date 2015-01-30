@@ -6,41 +6,44 @@
     <script>
         $(function(){
             function increment(elt, interval) {
-                elt.jMyLoader('item-loaded');
+                elt.jMyLoader('increment-loaded-item');
                 setTimeout(function() {
                     increment(elt, interval);
                 },
                 interval);
             }
 
-            $('body').jMyLoader();
-            $('body').jMyLoader('item-add', 20);
+            var jml = $('body').jMyLoader();
+            jml.addItems(20);
             increment($('body'), 500);
 
-            $('.demo1').jMyLoader({size : 200, spinner: 'image'});
-            $('.demo1').jMyLoader('item-add', 10);
-            increment($('.demo1'), 500);
-
-            $('.demo2').jMyLoader({size : 200, theme: 'blue'});
-            $('.demo2').jMyLoader('item-add', 10);
+            $('.demo2').jMyLoader({size : 200, spinner: 'image'});
+            $('.demo2').jMyLoader('add-items', 10);
             increment($('.demo2'), 500);
+
+            $('.demo3').jMyLoader({size : 200, theme: 'blue'});
+            $('.demo3').jMyLoader('add-items', 10);
+            increment($('.demo3'), 500);
         });
     </script>
     <link type="text/css" rel="stylesheet" href="css/jmyloader.css" media="all" />
     <link type="text/css" rel="stylesheet" href="css/demo.css" media="all" />
 </head>
 <body>
-    <div class="donut">
+    <div class="demo-wrapper">
+        <div class="demo1">
+            <h1>Global loader</h1>
+            <p>A demo of a global loader is visible at the top right of the screen. This loader is set on the body element, and can be used by any element of the page.</p>
+        </div>
+        <div class="demo-container demo2">
+            <h1>Inside a container</h1>
+            <p>This loader is set to be shown inside this container. This is very practical for small portions of page that require a separate loading system.</p>
+        </div>
 
-    </div>
-    <div class="demo-container demo1">
-        <h1>DEMO 1</h1>
-        <p>Loading inside the container</p>
-    </div>
-
-    <div class="demo-container demo2">
-        <h1>DEMO 2</h1>
-        <p>Loading inside the container</p>
+        <div class="demo-container demo3">
+            <h1>With Blue theme</h1>
+            <p>This loader is using a different theme : blue. It is easy to implement your own themes from a custom css file.</p>
+        </div>
     </div>
 </body>
 </html>
