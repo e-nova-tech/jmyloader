@@ -40,11 +40,13 @@
     font-size: 85%;
     padding: 0;
     margin: 0;
+    line-height: normal;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+    color: #636363;
 }
 
 .jmyloader path.foreground {
-    fill: #000000;
+    fill: #636363;
 }
 
 .jmyloader path.background {
@@ -54,6 +56,8 @@
 .jmyloader .spinner text{
     font-family: "RamaGothicM-Heavy",Impact,Haettenschweiler,"Franklin Gothic Bold",Charcoal,"Helvetica Inserat","Bitstream Vera Sans Bold","Arial Black",sans-serif;
     font-size: 20px;
+    color: #636363;
+    fill: #636363;
 }
 
 /** Extra themes **/
@@ -62,14 +66,16 @@
     color: white;
 }
 .blue .jmyloader path.foreground {
-    fill: #000000;
-    color: #1072b8;
+    fill: #1072b8;
 }
 
 .blue .jmyloader path.background {
     fill: #35526b;
 }
 .blue .jmyloader .spinner text{
-    fill: #ffffff;
-    /*font-size: 15px !important;*/
+    fill: #1072b8;
+}
+
+.blue .jmyloader p {
+    color: #1072b8;
 }

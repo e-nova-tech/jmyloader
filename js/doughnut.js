@@ -118,6 +118,13 @@ donut.prototype.draw = function(percent) {
 }
 
 /**
+ * Destroy doughnut.
+ */
+donut.prototype.destroy = function() {
+  this.$el.empty();
+}
+
+/**
  * Adjust percent inside the chart with a transition effect.
  * @param d3 object transition
  * @param jquery object el

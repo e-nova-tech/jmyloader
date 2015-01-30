@@ -118,6 +118,13 @@ donut.prototype.draw = function(percent) {
 }
 
 /**
+ * Destroy doughnut.
+ */
+donut.prototype.destroy = function() {
+  this.$el.empty();
+}
+
+/**
  * Adjust percent inside the chart with a transition effect.
  * @param d3 object transition
  * @param jquery object el
@@ -277,20 +284,7 @@ jQuery.fn.jMyLoader = function(o, v) {
         // We manage here all settings set as "auto", which is
         // an extra layer developed for the loader.
         if (this.settings.spinner == 'doughnut') {
-          var dn_config = this.settings.doughnut;
-          // Width and Height.
-          if (dn_config.width == "auto") {
-            dn_config.width = dn_config.height = this.settings.size / 4;
-          }
-          // Thickness.
-          if (dn_config.thickness == "auto") {
-            dn_config.thickness = this.settings.size / 30;
-          }
-          // Text size.
-          if (dn_config.textSize == "auto") {
-            dn_config.textSize = this.settings.size * 0.08 + 'px';
-          }
-          this.donut = new donut($('.spinner', this.app), dn_config);
+          this.drawDoughnut();
         }
         // End Doughnut settings management.
 
@@ -298,12 +292,12 @@ jQuery.fn.jMyLoader = function(o, v) {
         this.app.addClass(this.settings.initClass);
 
         // Set size for wrapper.
-        $('.' + this.settings.wrapperClass, this.app)
+        $('.' + this.settings.wrapperClass + ':first', this.app)
           .width(this.settings.size)
           .height(this.settings.size);
 
         // Set size for main element, inside wrapper.
-        $('.' + this.settings.mainClass, this.app)
+        $('.' + this.settings.mainClass + ':first', this.app)
           .width(this.settings.size)
           .height(this.settings.size)
           .css('right', 0 - this.radius)
@@ -311,13 +305,33 @@ jQuery.fn.jMyLoader = function(o, v) {
 
         // Manage font size to adapt as per container.
         var coef = this.settings.size / 300;
-        $('.' + this.settings.mainClass + ' p', this.app).css('font-size', 100 * coef + '%');
+        $('.' + this.settings.mainClass + ':first p', this.app).css('font-size', 100 * coef + '%');
 
         // Hide at start ?
         if (!this.settings.hideAtStart) {
           this.show();
         }
         return this;
+      },
+
+      /**
+       * draw the doughnut.
+       */
+      drawDoughnut : function() {
+        var dn_config = this.settings.doughnut;
+        // Width and Height.
+        if (dn_config.width == "auto") {
+          dn_config.width = dn_config.height = this.settings.size / 4;
+        }
+        // Thickness.
+        if (dn_config.thickness == "auto") {
+          dn_config.thickness = this.settings.size / 30;
+        }
+        // Text size.
+        if (dn_config.textSize == "auto") {
+          dn_config.textSize = this.settings.size * 0.08 + 'px';
+        }
+        this.donut = new donut($('.spinner:first', this.app), dn_config);
       },
 
       /**
@@ -344,7 +358,7 @@ jQuery.fn.jMyLoader = function(o, v) {
        * @returns {boolean}
        */
       isVisible : function() {
-        if ($('.' + this.settings.mainClass, this.app).hasClass(this.settings.visibleClass)) {
+        if ($('.' + this.settings.mainClass + ':first', this.app).hasClass(this.settings.visibleClass)) {
           return true;
         }
         return false;
@@ -355,8 +369,8 @@ jQuery.fn.jMyLoader = function(o, v) {
        */
       show : function() {
         if(!this.isVisible()) {
-          $('.' + this.settings.mainClass, this.app).addClass(this.settings.visibleClass);
-          $( '.' + this.settings.mainClass, this.app ).animate({
+          $('.' + this.settings.mainClass + ':first', this.app).addClass(this.settings.visibleClass);
+          $( '.' + this.settings.mainClass + ':first', this.app ).animate({
             top: "+=" + this.radius,
             right: "+=" + this.radius
           }, {duration: 500});
@@ -368,11 +382,11 @@ jQuery.fn.jMyLoader = function(o, v) {
        */
       hide : function() {
         if(this.isVisible()) {
-          $( "." + this.settings.mainClass, this.app).animate({
+          $( "." + this.settings.mainClass + ':first', this.app).animate({
             top: "-=" + this.radius,
             right: "-=" + this.radius
           }, {duration: 500});
-          $('.' + this.settings.mainClass, this.app).removeClass(this.settings.visibleClass);
+          $('.' + this.settings.mainClass + ':first', this.app).removeClass(this.settings.visibleClass);
         }
       },
 
@@ -427,6 +441,7 @@ jQuery.fn.jMyLoader = function(o, v) {
         var increment = n ? n : 1;
         // Increment items.
         this.currentItem += increment;
+        console.log(this.currentItem);
         this.itemsRefresh();
       },
 
@@ -451,6 +466,18 @@ jQuery.fn.jMyLoader = function(o, v) {
         }
         //console.log(this.currentItem + ' / ' + this.nbItems + " * 100  =" + percent);
         this.setPercent(percent);
+      },
+
+      /**
+       * reset the plugin to zero, and redraw the spinner.
+       */
+      reset : function() {
+        this.nbItems = 0;
+        this.currentItem = 0;
+        if (this.settings.spinner == 'doughnut') {
+          this.donut.destroy();
+          this.drawDoughnut();
+        }
       }
     };
 
@@ -475,7 +502,7 @@ jQuery.fn.jMyLoader = function(o, v) {
      * @returns {*}
      */
     function getJMyLoaderElt(elt) {
-      var jml = elt.find('div:first-child > .jml')[0];
+      var jml = $('> div > .jml', elt)[0];
       return elt.find(jml);
     }
 
@@ -486,7 +513,7 @@ jQuery.fn.jMyLoader = function(o, v) {
      */
     function getJMyLoader(elt) {
       var jml = getJMyLoaderElt(elt);
-      if (jml) {
+      if (jml.length) {
         var jmlId = jml.attr('id').split("-")[1];
         return $.jMyLoaderInstances[jmlId];
       }
@@ -496,7 +523,6 @@ jQuery.fn.jMyLoader = function(o, v) {
     // Command management.
     // Check if a command is given, or if we init a new instance.
     if (!$.isPlainObject(o) && typeof(o) != 'undefined') {
-      //console.log("execute command");
       // Execute command.
       if ($.jMyLoaderInstances) {
         var cmd = o;
@@ -527,14 +553,25 @@ jQuery.fn.jMyLoader = function(o, v) {
           case 'loader-exists' :
             return jml.loaderExists();
             break;
+          case 'reset' :
+            return jml.reset();
+            break;
         }
       }
       return;
     }
-    // Init app.
-    JML = init($(this), o);
-    // Return app instance.
-    return JML;
+
+    var jml = getJMyLoader($(this));
+    if (!jml || !jml.app.hasClass(jml.settings.initClass)) {
+      // Init app.
+      JML = init($(this), o);
+      // Return app instance.
+      return JML;
+    }
+    else {
+      JML = jml;
+    }
+
   });
   return JML;
 }

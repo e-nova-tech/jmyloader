@@ -5,10 +5,10 @@
     <script src="js/build/jmyloader-full.min.js"></script>
     <script>
         $(function(){
-            function increment(elt, interval) {
+            function increment(elt, interval, i) {
                 elt.jMyLoader('increment-loaded-item');
                 setTimeout(function() {
-                    increment(elt, interval);
+                    increment(elt, interval, i);
                 },
                 interval);
             }
