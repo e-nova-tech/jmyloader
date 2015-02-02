@@ -42,11 +42,11 @@
     margin: 0;
     line-height: normal;
     font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
-    color: #636363;
+    color: #ffffff;
 }
 
 .jmyloader path.foreground {
-    fill: #636363;
+    fill: #ffffff;
 }
 
 .jmyloader path.background {
@@ -56,8 +56,7 @@
 .jmyloader .spinner text{
     font-family: "RamaGothicM-Heavy",Impact,Haettenschweiler,"Franklin Gothic Bold",Charcoal,"Helvetica Inserat","Bitstream Vera Sans Bold","Arial Black",sans-serif;
     font-size: 20px;
-    color: #636363;
-    fill: #636363;
+    fill: #ffffff;
 }
 
 /** Extra themes **/

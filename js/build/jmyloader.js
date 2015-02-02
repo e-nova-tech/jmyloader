@@ -208,7 +208,7 @@ jQuery.fn.jMyLoader = function(o, v) {
          * image to load in case the spinner is an image.
          * this image should be in the css directory of the plugin.
          */
-        spinner_image : 'spinner.gif',
+        spinnerImage : 'spinner.gif',
         /**
          * What text is to be displayed.
          */
@@ -343,7 +343,7 @@ jQuery.fn.jMyLoader = function(o, v) {
           '<div class="' + this.settings.wrapperClass + (this.settings.theme ? ' ' + this.settings.theme : '') + '">'
           + '<div class="jml ' + this.settings.mainClass + '" id="jml-'+ this.settings.jmlId +'">'
           + '<div class="spinner">'
-          + (this.settings.spinner == 'image' ? '<img src="css/' + this.settings.spinner_image + '" width="75">' : '')
+          + (this.settings.spinner == 'image' ? '<img src="css/' + this.settings.spinnerImage + '" width="75">' : '')
           + '</div>'
           + '<p>'
           + this.settings.text
@@ -369,6 +369,7 @@ jQuery.fn.jMyLoader = function(o, v) {
        */
       show : function() {
         if(!this.isVisible()) {
+          $('.' + this.settings.wrapperClass + ':first', this.app).show();
           $('.' + this.settings.mainClass + ':first', this.app).addClass(this.settings.visibleClass);
           $( '.' + this.settings.mainClass + ':first', this.app ).animate({
             top: "+=" + this.radius,
@@ -381,12 +382,22 @@ jQuery.fn.jMyLoader = function(o, v) {
        * hide JMyLoader.
        */
       hide : function() {
+        var self = this;
         if(this.isVisible()) {
-          $( "." + this.settings.mainClass + ':first', this.app).animate({
-            top: "-=" + this.radius,
-            right: "-=" + this.radius
-          }, {duration: 500});
-          $('.' + this.settings.mainClass + ':first', this.app).removeClass(this.settings.visibleClass);
+          $( "." + this.settings.mainClass + ':first', this.app).animate(
+            {
+              top: "-=" + this.radius,
+              right: "-=" + this.radius
+            },
+            {
+              duration: 500,
+              complete: function () {
+                $('.' + self.settings.wrapperClass + ':first', self.app).hide();
+              }
+            }
+          );
+          $('.' + this.settings.mainClass + ':first', this.app)
+            .removeClass(this.settings.visibleClass);
         }
       },
 
