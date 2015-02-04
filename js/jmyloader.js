@@ -307,7 +307,6 @@ jQuery.fn.jMyLoader = function(o, v) {
         var increment = n ? n : 1;
         // Increment items.
         this.currentItem += increment;
-        console.log(this.currentItem);
         this.itemsRefresh();
       },
 
@@ -330,7 +329,6 @@ jQuery.fn.jMyLoader = function(o, v) {
         if (this.nbItems > 0) {
           percent = Math.round(this.currentItem / this.nbItems * 100);
         }
-        //console.log(this.currentItem + ' / ' + this.nbItems + " * 100  =" + percent);
         this.setPercent(percent);
       },
 
@@ -356,7 +354,6 @@ jQuery.fn.jMyLoader = function(o, v) {
     function init(elt, options) {
       options = options || {};
       options.jmlId = $.jMyLoaderInstances.length;
-      //console.log("jmlid", options.jmlId);
       var jml = jMyLoader.init(elt, options);
       $.jMyLoaderInstances.push(jml);
       return jml;
