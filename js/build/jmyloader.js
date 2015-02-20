@@ -194,6 +194,10 @@ jQuery.fn.jMyLoader = function(o, v) {
          */
         visibleClass : 'visible',
         /**
+         * callback on loaded.
+         */
+        onLoaded : null,
+        /**
          * theme to be applied. This theme should be defined in a css file.
          * Existing themes : 'blue'
          */
@@ -432,6 +436,10 @@ jQuery.fn.jMyLoader = function(o, v) {
           }
           else {
             this.hide();
+          }
+          // Callback on loaded.
+          if (this.settings.onLoaded && jQuery.isFunction(this.settings.onLoaded)) {
+            this.settings.onLoaded();
           }
         }
       },
